@@ -1,0 +1,7 @@
+{
+  "name": "CarBoyWorkforce",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

@@ -1,0 +1,162 @@
+page-dashboard {
+    .toolbar-background {
+        background-color: $whiteColor;
+    }
+    .toolbar-title {
+        font-size: 1.8rem;
+        color: $blackColor;
+    }
+
+    ion-content{
+      background-color: $bodyBack !important;
+      .today-card{
+        margin: 0px;
+        width: 100%;
+        // background-color: #595e6a;
+        border-radius: 6px;
+
+        .title{
+          padding-left: 10px;
+          margin-bottom: 10px;
+          font-size: 1.2rem;
+          color: $whiteColor;
+        }
+        .card-content{
+          padding: 8px 0px 13px 0px
+        }
+        .row{
+          .col{
+            &:first-child{
+              border-right: 1px solid $whiteColor;
+            }
+            h1{
+              font-size: 3rem;
+              font-weight: 100;
+              margin: 0 0 0px;
+              color: $whiteColor;
+            }
+            .amount{
+              font-weight: bold;
+              line-height: 1.2;
+              margin: 0 0 0px;
+              color: $whiteColor;
+            }
+            p{
+              color: $whiteColor;
+            }
+          }
+        }
+      }
+      .orange-gradiant{
+        background: linear-gradient(to right,#fe9365,#feb798);
+      }
+      .green-gradiant{
+        background: linear-gradient(to right,#0ac282,#0df3a3);
+      }
+      .earning-card{
+        margin: 0px;
+        width: 100%;
+        border-radius: 6px;
+        background: linear-gradient(to right,#fe5d70,#fe909d);
+        .title{
+          padding-left: 10px;
+          padding-bottom: 7px;
+          font-size: 1.2rem;
+          border-bottom: 1px solid $borderColor;
+          margin: 0 0 0px;
+          color: $whiteColor;
+        }
+        .card-content{
+          padding: 8px 0px 0px 0px
+        }
+        .row{
+          .col{
+            padding: 10px 5px 7px;
+            &:first-child{
+              border-right: 1px solid $borderColor
+            }
+            h1{
+              font-size: 2.1rem;
+              font-weight: bold;
+              margin: 0 0 0px;
+              color: $whiteColor;
+              span{
+                font-weight: 100 !important;
+                font-size: 1.8rem
+              }
+            }
+            .amount{
+              font-weight: bold;
+              line-height: 1.2;
+              margin: 0 0 0px;
+              // color: white;
+            }
+            p{
+              color: $whiteColor;
+              font-size: 1.2rem
+            }
+          }
+        }
+        .border-bottom{
+          border-bottom: 1px solid $borderColor;
+        }
+      }
+      .card-detail{
+        margin: 0px;
+        width: calc(100% - 8px);
+        border-radius: 4px;
+        h1{
+          font-size: 4.5rem;
+          font-weight: 400;
+          text-align: center;
+        }
+        p{
+          text-align: center;
+        }
+      }
+      .margin-left-8{
+        margin-left: 8px;
+      }
+    }
+    .ionic3-star-rating{
+      width: fit-content;
+      position: absolute;
+      right: 8px;
+      top: 5px;
+      .button{
+        height:12px !important;
+        width:12px !important;
+        margin: 0rem 0.1rem;
+        ion-icon{
+          font-size:15px !important
+        }
+      }
+    }
+
+    .ratting-list{
+      .list-header{
+        border-top:none;
+        border-bottom:1px solid #dedede;
+        margin-bottom:0px;
+        color:$activeSegmrnt;
+      }
+      .item{
+        padding-left:10px;
+        h2{
+          color:$activeSegmrnt;
+        }
+        .time-row{
+          color: #dedede;
+        }
+        ion-avatar[item-start]{
+          margin: 17px 16px 8px 0;
+        }
+      }
+      ion-item.item.item-block.item-ios,
+      ion-item.item.item-block.item-md {
+        display: flex;
+        align-items: flex-start; // <---- This does the trick!
+      }
+    }
+
+}

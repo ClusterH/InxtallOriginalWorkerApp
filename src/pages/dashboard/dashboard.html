@@ -1,0 +1,91 @@
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>Dashboard</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card class="today-card orange-gradiant">
+        <ion-card-content>
+            <p class="title">Today Booking</p>
+            <ion-row text-center>
+                <ion-col>
+                    <h1>{{ todayPending ? todayPending : 0 }}</h1>
+                    <p>Pending</p>
+                </ion-col>
+                <ion-col>
+                    <h1>{{ todayComplete ? todayComplete : 0 }}</h1>
+                    <p>Complete</p>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="today-card green-gradiant" margin-top>
+        <ion-card-content>
+            <p class="title">Curren Week Booking</p>
+            <ion-row text-center>
+                <ion-col>
+                    <h1>{{ weekPending ? weekPending : 0 }}</h1>
+                    <p>Pending</p>
+                </ion-col>
+                <ion-col>
+                    <h1>{{ weekComplete ? weekComplete : 0 }}</h1>
+                    <p>Complete</p>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+    <ion-card class="earning-card" margin-top>
+        <ion-card-content>
+            <p class="title">Earning</p>
+            <ion-row text-center class="border-bottom">
+                <ion-col>
+                    <h1>
+                        <span>$</span> {{ todayPendingEarning ? todayPendingEarning : 0 }}
+                    </h1>
+                    <p>Today Pending</p>
+                </ion-col>
+                <ion-col>
+                    <h1>
+                        <span>$</span> {{ todayCompleteEarning ? todayCompleteEarning : 0 }}
+                    </h1>
+                    <p>Today Complete</p>
+                </ion-col>
+            </ion-row>
+            <ion-row text-center>
+                <ion-col>
+                    <h1>
+                        <span>$</span> {{ weekPendingEarning ? weekPendingEarning : 0 }}
+                    </h1>
+                    <p>Current Week Pending</p>
+                </ion-col>
+                <ion-col>
+                    <h1>
+                        <span>$</span> {{ weekCompleteEarning ? weekCompleteEarning : 0 }}
+                    </h1>
+                    <p>Current Week Complete</p>
+                </ion-col>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+    <ion-list margin-top class="ratting-list">
+        <ion-list-header> Rating</ion-list-header>
+        <ion-item no-lines *ngIf="(reviewData$ | async)?.length==0" text-center>No Data Found</ion-item>
+        <ion-item *ngFor="let item of (reviewData$ | async)">
+            <ion-avatar item-start>
+                <img [src]="(item.user |async)?.image" alt="{{(item.user |async)?.username}}" onError="this.src='http://placehold.it/50x50'">
+            </ion-avatar>
+            <h2>{{ (item.user | async)?.username }}</h2>
+            <ionic3-star-rating
+                    activeIcon="ios-star"
+                    defaultIcon="ios-star-outline"
+                    activeColor="#ECE428"
+                    defaultColor="#AAAAAA"
+                    readonly="true"
+                    [rating]="item.star">
+            </ionic3-star-rating>
+            <p text-wrap>{{ item.cmt }}</p>
+            <p class="time-row">{{ item.create_date | timeAgo }}</p>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,49 @@
+ion-tabs{
+  .tabbar {
+    background:$tabBackgroundColor !important;
+    .tab-button{
+      .tab-button-icon{
+        color:rgba($tabFontColor,0.7);
+      }
+    }
+    .tab-button-text {
+      font-size: 2.2vw !important;
+    }
+    .tab-button[aria-selected="true"] {
+        border-bottom : 5px solid $activeTabBorderColor !important;
+        .tab-button-icon{
+          color: $whiteColor !important;  
+        }
+      .tab-button-text {
+        color: $whiteColor !important;
+      }
+    }
+  } 
+}
+// .tabs-md .tab-button[aria-selected="true"] .tab-button-text {
+//   color: $activeSegmrnt;
+// }
+
+// .tabs-md .tab-button[aria-selected="false"] .tab-button-text {
+//   color: #ccccd1;
+// }
+
+// .tabs-md .tabbar {
+//   background: white;
+// }
+
+
+
+
+// .tabs-md .tab-button[aria-selected="true"] .tab-button-icon {
+//   background: no-repeat;
+//   height: 23px;
+//   color: $activeSegmrnt;
+// }
+
+// .tabs-md .tab-button[aria-selected="false"] .tab-button-icon {
+//   background: no-repeat;
+//   height: 23px;
+// }
+
+

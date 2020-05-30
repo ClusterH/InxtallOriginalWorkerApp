@@ -1,0 +1,121 @@
+page-booking-detail {
+  ion-header {
+    .toolbar-background {
+      background-color: $whiteColor;
+    }
+    .toolbar-title {
+      font-size: 1.8rem;
+      color: $blackColor;
+    }
+    .back-button {
+      color: $activeSegmrnt;
+    }
+  }
+
+  ion-content {
+    .item {
+      .label {
+        margin: 8px 8px 8px 0;
+      }
+    }
+    .title {
+      font-size: 1.5rem;
+      color: $dargGrayColor;
+    }
+    .bold-line {
+      font-size: 1.5rem;
+      font-weight: bold !important;
+    }
+    .medium {
+      font-size: 1.5rem;
+    }
+    .status {
+      font-size: 1.5rem;
+      font-weight: bold !important;
+      //color: $activeSegmrnt;
+    }
+    .unassign {
+      color: #3498DB;
+    }
+    .pending {
+      color: #F1C40F;
+    }
+    .complete {
+      color: #2ECC71;
+    }
+    .cancel {
+      color: #E74C3C;
+    }
+    .segment {
+      padding-top: 7px;
+      margin-top: 6px;
+      background-color: $bluerGrayColor;
+      .segment-button {
+        border-bottom-color: rgba(0, 0, 0, 0) !important;
+        color: $blackColor;
+        font-weight: bold;
+        opacity: 1;
+        height: 4rem;
+      }
+      .segment-activated {
+        background-color: white !important;
+      }
+    }
+    .line {
+      margin-top: 10px;
+      border-top: 5px solid $bluerGrayColor;
+    }
+    .address-line {
+      .label {
+        margin: 8px 8px 8px 0;
+      }
+    }
+    .mapStyle {
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+    .payment-col {
+      .col {
+        padding: 0px;
+      }
+      .title {
+        margin-top: 8px;
+        margin-bottom: 7px;
+      }
+      .medium {
+        margin-top: 2px;
+      }
+    }
+    .icon {
+      color: $activeSegmrnt;
+    }
+    .btn-accept, .btn-accept:hover, .btn-accept:active {
+      width: 100%;
+      margin: 0px;
+      background-color: $buttonBackcolor;
+    }
+    .btn-cencel, .btn-cencel:hover, .btn-cencel:active {
+      width: 100%;
+      margin: 0px;
+      background-color: $cancelButtonBack;
+    }
+    .price {
+      float: right;
+    }
+    .service-total-row {
+      margin-top: 5px;
+      span:first-child {
+        color: $usernameTextColor;
+      }
+      .total-price {
+        float: right;
+        color: $usernameTextColor;
+        font-size: 1.8rem;
+      }
+    }
+    .car-image{
+      height:70px;
+    }
+  }
+}

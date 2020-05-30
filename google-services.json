@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "784277590732",
+    "firebase_url": "https://carboy-b8b78.firebaseio.com",
+    "project_id": "carboy-b8b78",
+    "storage_bucket": "carboy-b8b78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784277590732:android:6f03f2a67a4ce8c1512869",
+        "android_client_info": {
+          "package_name": "com.coder12895.carBoyWorkforce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784277590732-i0mshcubagsb47mh0g13i2rnfjur3ugh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARGKkbMCqVHyf6yottLuGpbIEwaWns4Z8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784277590732-i0mshcubagsb47mh0g13i2rnfjur3ugh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

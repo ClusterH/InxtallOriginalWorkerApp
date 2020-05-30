@@ -1,0 +1,194 @@
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>Booking Detail</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ng-container *ngIf="bookingData">
+        <ion-item no-lines>
+            <span class="title">Ordered by</span><br>
+            <span class="bold-line" *ngIf="bookingData.user">{{bookingData.user.username}}</span>
+            <a *ngIf="bookingData.user" href="tel:{{bookingData.user.Mobile_No}}" item-end>
+                <ion-icon style="font-size: 1.7em" name="md-call"></ion-icon>
+            </a>
+        </ion-item>
+        <ion-item no-lines>
+            <span class="title">Service Location</span><br>
+            <span class="bold-line" *ngIf="bookingData.user">
+            <ng-container *ngIf="bookingData.UserWant=='STAY' && bookingData.addressData">{{bookingData.addressData.Address}}</ng-container>
+            <ng-container *ngIf="bookingData.UserWant=='COME'">At Shop</ng-container>
+          </span>
+            <a *ngIf="bookingData.addressData" href="http://maps.google.com/?q={{bookingData.addressData.Address}}"
+               item-end>
+                <ion-icon style="font-size: 1.7em" name="md-pin"></ion-icon>
+            </a>
+        </ion-item>
+        <ion-item no-lines>
+            <span class="title">Ordered Status</span><br>
+            <span class="status unassign" *ngIf="bookingData.status==0">Unassign</span>
+            <span class="status pending" *ngIf="bookingData.status==1">Pending</span>
+            <span class="status complete" *ngIf="bookingData.status==2">Complete</span>
+            <span class="status cancel" *ngIf="bookingData.status==3">Cancel</span>
+            <ion-icon name="ios-car" item-end></ion-icon>
+        </ion-item>
+    </ng-container>
+    <ion-segment [(ngModel)]="detailType">
+        <ion-segment-button value="order_info" text-capitalize>
+            Order Info
+        </ion-segment-button>
+        <ion-segment-button value="service_list" text-capitalize>
+            Service List
+        </ion-segment-button>
+        <ion-segment-button value="car_detail" text-capitalize>
+            Car Info
+        </ion-segment-button>
+    </ion-segment>
+    <ion-list [hidden]="detailType != 'order_info'">
+        <ng-container *ngIf="bookingData">
+            <ion-row margin-top>
+                <ion-col padding-left>
+                    <span class="title">Delivery</span><br>
+                    <span class="bold-line">{{bookingData.startTime | date:'EEEE, dd MMM'}}</span><br>
+                    <span class="medium">{{bookingData.startTime | date:'hh:mm a'}} - {{bookingData.endTime |
+                                date:'hh:mm a'}}</span>
+                </ion-col>
+                <ion-col padding-left>
+                    <span class="title">Distance</span><br>
+                    <span class="bold-line">{{distance}} KM</span><br>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="bookingData.UserWant=='STAY' && bookingData.onTheWay==2 && bookingData.paymentStatus==1">
+                <ion-col padding-left>
+                    <span class="title">Payment Status</span><br>
+                    <span class="bold-line" *ngIf="bookingData.paymentStatus==0">Pending</span>
+                    <span class="bold-line" *ngIf="bookingData.paymentStatus==1">Complete</span>
+                </ion-col>
+                <ion-col padding-left>
+                    <span class="title">Payment Method</span><br>
+                    <span class="bold-line">{{bookingData.paymentMethod}}</span><br>
+                </ion-col>
+            </ion-row>
+            <div class="line"></div>
+            <ion-item no-lines class="address-line">
+                <span class="title">Address</span><br>
+                <span class="bold-line" style="white-space: normal" *ngIf="bookingData.addressData">{{bookingData.addressData.Address}}</span>
+                <ion-icon name="ios-navigate-outline" item-end></ion-icon>
+            </ion-item>
+        </ng-container>
+        <div style="height: 20rem;width: 100%" [hidden]="!displayMap">
+            <div #map id="map" class="mapStyle"></div>
+        </div>
+        <ion-row class="payment-col" *ngIf="bookingData">
+            <ion-col>
+                <p no-margin padding-left class="title">Payment</p>
+                <p no-margin padding-left class="bold-line" *ngIf="bookingData"> $ {{bookingData.total}}</p>
+                <p padding-left no-margin class="medium" *ngIf="bookingData.paymentStatus==1  && bookingData.paymentMethod=='COD'">Cash On Delivery</p>
+                <p padding-left no-margin class="medium" *ngIf="bookingData.paymentStatus==1  && bookingData.paymentMethod=='PAYPAL'">Paypal Payment</p>
+                <p padding-left no-margin class="medium" *ngIf="bookingData.paymentStatus==1  && bookingData.paymentMethod=='RAZORPAY'"> Razorpay Payment</p>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+    <ion-list [hidden]="detailType != 'service_list'" padding no-margin>
+        <ng-container *ngIf="bookingData">
+            <ion-row no-padding *ngFor="let s of bookingData.servicesData">
+                <ion-col>
+                    <span class="bold-line">{{s.name}}</span>
+                    <span class="bold-line price">$ {{s.price}}</span>
+                </ion-col>
+            </ion-row>
+            <ion-row no-padding class="service-total-row">
+                <ion-col>
+                    <span class="bold-line" *ngIf="bookingData.paymentStatus==0">Total Amount</span>
+                    <span class="bold-line" *ngIf="bookingData.paymentStatus==1  && bookingData.paymentMethod=='COD'">Cash On Delivery</span>
+                    <span class="bold-line" *ngIf="bookingData.paymentStatus==1  && bookingData.paymentMethod=='PAYPAL'">Paypal Payment</span>
+                    <span class="bold-line" *ngIf="bookingData.paymentStatus==1  && bookingData.paymentMethod=='RAZORPAY'"> Razorpay Payment</span>
+                    <span class="bold-line total-price">$ {{bookingData.total}}</span>
+                </ion-col>
+            </ion-row>
+        </ng-container>
+    </ion-list>
+    <ion-list [hidden]="detailType != 'car_detail'">
+       <ng-container *ngIf="bookingData && bookingData.carData">
+           <ion-row margin-top>
+               <ion-col padding-left>
+                   <span class="title">Brand</span><br>
+                   <span class="medium">{{bookingData.carData.Brand}}</span>
+               </ion-col>
+               <ion-col padding-left>
+                   <span class="title">Model</span><br>
+                   <span class="medium">{{bookingData.carData.Model}}</span><br>
+               </ion-col>
+           </ion-row>
+           <ion-row>
+               <ion-col padding-left>
+                   <span class="title">Colour</span><br>
+                   <span class="medium">{{bookingData.carData.Color}}</span>
+               </ion-col>
+               <ion-col padding-left>
+                   <span class="title">Type</span><br>
+                   <span class="medium">{{bookingData.carData.Type}}</span><br>
+               </ion-col>
+           </ion-row>
+           <ion-row>
+               <ion-col padding-left>
+                   <span class="title">Number</span><br>
+                   <span class="medium">{{bookingData.carData.Number}}</span>
+               </ion-col>
+           </ion-row>
+           <span padding-left class="title">Image</span><br>
+           <ion-row>
+               <ion-col padding-left>
+                   <img class="car-image" [src]="bookingData.carData.image_1" imageViewer alt="Car Image">
+               </ion-col>
+               <ion-col >
+                   <img class="car-image" [src]="bookingData.carData.image_2" imageViewer alt="Car Image">
+               </ion-col>
+               <ion-col padding-right>
+                   <img class="car-image" [src]="bookingData.carData.image_3"  imageViewer alt="Car Image">
+               </ion-col>
+           </ion-row>
+       </ng-container>
+    </ion-list>
+    <ng-container *ngIf="bookingData">
+        <ion-row *ngIf="bookingData.status==0">
+            <ion-col>
+                <button ion-button text-capitalize class="btn-accept" (click)="acceptBooking()">
+                    Accept
+                </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button text-capitalize class="btn-cencel" (click)="rejectBooking()">
+                    Reject
+                </button>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="bookingData.status==1">
+            <ion-col>
+                <button ion-button text-capitalize *ngIf="bookingData.UserWant=='STAY' && bookingData.onTheWay==0"
+                        class="btn-accept" (click)="onTheWayCall()">
+                    On The Way
+                </button>
+                <button ion-button text-capitalize *ngIf="bookingData.UserWant=='STAY' && bookingData.onTheWay==1"
+                        class="btn-accept" (click)="employeeReach()">
+                    Reach
+                </button>
+                <button ion-button text-capitalize class="btn-accept"
+                        *ngIf="bookingData.UserWant=='STAY' && bookingData.onTheWay==2" (click)="completeBooking()">
+                    Complete
+                </button>
+                <button ion-button text-capitalize class="btn-accept" *ngIf="bookingData.UserWant=='COME'"
+                        (click)="completeBooking()">
+                    Complete
+                </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button text-capitalize class="btn-cencel" (click)="cancelBooking()">
+                    Cancel
+                </button>
+            </ion-col>
+        </ion-row>
+    </ng-container>
+
+</ion-content>

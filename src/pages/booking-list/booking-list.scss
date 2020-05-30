@@ -1,0 +1,92 @@
+page-booking-list {
+  ion-header {
+    .toolbar-background {
+      background-color: $whiteColor;
+    }
+    .toolbar-title {
+      font-size: 1.8rem;
+      color: $blackColor;
+    }
+    .segment {
+      background-color: $whiteColor;
+      .segment-button{
+        color: $blackColor;
+        opacity: 1;
+        font-weight: normal;
+        font-size: 1.4rem;
+        border-bottom-color: transparent;
+        .active-line{
+          display:none;
+          border-bottom: 3px solid $activeSegmrnt;
+          margin-top: -6px;
+          width: 50px;
+          transform: translateX(-50%);
+          left: 50%;
+          position: absolute;
+        }
+      }
+      .segment-button.activated{
+        border-color:transparent !important;
+      }
+      .segment-activated {
+        border-color: transparent !important;
+        font-weight: bold !important;
+        color: $activeSegmrnt !important;
+        .active-line{
+          display:inherit;
+          border-bottom: 3px solid $activeSegmrnt;
+          margin-top: -6px;
+          width: 50px;
+          transform: translateX(-50%);
+          left: 50%;
+          position: absolute;
+        }
+      }
+    }
+  }
+  ion-content {
+    background-color: $bodyBack !important;
+    .scroll-content {
+      margin-top: 107px;
+    }
+    .card {
+      box-shadow: none;
+      border-radius: 5px;
+      .item {
+        h2 {
+          font-size: 1.5rem;
+          font-weight: 500;
+          color: $usernameTextColor;
+        }
+
+        .button,.button:hover,.button:active {
+          padding: 0 2.5em;
+          height: 30px;
+          background-color: $buttonBackcolor;
+        }
+        .btn-complete {
+          padding: 0 2em !important;
+        }
+      }
+      ion-card-content {
+        ion-row {
+          padding: 0px;
+          ion-col {
+            padding: 0px 5px 5px 5px;
+          }
+        }
+        .small-title {
+          font-size: 1.2rem;
+          color: $dargGrayColor;
+        }
+        .bold-line {
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+        .regular-line {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

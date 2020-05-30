@@ -1,0 +1,29 @@
+<ion-content class="credi_background">
+    <div class="contain" padding>
+        <img margin-top src="./assets/imgs/Logo.png" class="logo">
+
+        <form class="flp">
+            <div margin-bottom>
+                <input [(ngModel)]="email" name="email" type="email" id="fname"/>
+                <label for="fname">Username</label>
+            </div>
+            <div margin-bottom>
+                <input [(ngModel)]="password" name="password" type="password" id="password"/>
+                <label for="password">Password</label>
+            </div>
+        </form>
+
+        <button ion-button full (click)="signin()" >Sign in</button>
+
+        <ion-row>
+            <ion-col col-6 text-left>
+
+            </ion-col>
+
+            <ion-col col-6 text-right>
+                <span (tap)="GoToForgot()" class="txt2" tappable>Forgot Password ?</span>
+            </ion-col>
+        </ion-row>
+
+    </div>
+</ion-content>

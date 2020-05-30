@@ -1,0 +1,184 @@
+<ion-header no-border>
+    <ion-navbar>
+        <ion-title>Booking List</ion-title>
+    </ion-navbar>
+
+    <ion-segment [(ngModel)]="bookingType" (ionChange)="changeBookingType()">
+        <ion-segment-button value="new" text-capitalize>
+            New
+            <div class="active-line"></div>
+        </ion-segment-button>
+        <ion-segment-button value="upcomming" text-capitalize>
+            Upcomming
+            <div class="active-line"></div>
+        </ion-segment-button>
+        <ion-segment-button value="complete" text-capitalize>
+            Complete
+            <div class="active-line"></div>
+        </ion-segment-button>
+    </ion-segment>
+
+</ion-header>
+
+<ion-content>
+    <ion-list [hidden]="bookingType != 'new'">
+        <ion-card text-center *ngIf="(newbookingData$ | async)?.length==0">
+            <ion-card-content>No Data Found</ion-card-content>
+        </ion-card>
+        <ng-container *ngFor="let book of (newbookingData$ |async)">
+            <ion-card (click)="viewBookingDetail(book.id,$event)">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img [src]="(book.user |async)?.image" alt="{{(book.user |async)?.username}}" onError="this.src='http://placehold.it/50x50'">
+                    </ion-avatar>
+                    <h2>{{(book.user |async)?.username}}</h2>
+                    <p>{{book.startTime | date:'MMMM dd, yyyy'}}</p>
+                    <button ion-button text-capitalize item-end (click)="acceptBooking(book,$event)">
+                        Accept
+                    </button>
+                </ion-item>
+
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col col-2>
+                        </ion-col>
+                        <ion-col col-6>
+                            <span class="small-title">Delivery Time</span> <br>
+                            <p class="bold-line">{{book.startTime | date:'EEEE, dd MMMM'}}</p>
+                            <p class="regular-line">{{book.startTime | date:'hh:mm a'}} - {{book.endTime |
+                                date:'hh:mm a'}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <span class="small-title">Payment</span> <br>
+                            <p class="bold-line">$ {{book.total}}</p>
+                            <!--<p class="regular-line">Cash On Delivery</p>-->
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-2>
+                        </ion-col>
+                        <ion-col>
+                            <span class="small-title">Delivery Address</span> <br>
+                            <p class="bold-line">{{(book.addressData |async)?.Address | sliceAddress:'30'}}
+                                ({{(book.addressData |async)?.Pincode}})</p>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+        </ng-container>
+    </ion-list>
+
+    <ion-list [hidden]="bookingType != 'upcomming'">
+        <ion-card text-center *ngIf="(pendingBookingData$ | async)?.length==0">
+            <ion-card-content>No Data Found</ion-card-content>
+        </ion-card>
+        <ng-container *ngFor="let bookp of (pendingBookingData$ |async)">
+            <ion-card (click)="viewBookingDetail(bookp.id,$event)">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img [src]="(bookp.user |async)?.image" alt="{{(bookp.user |async)?.username}}" onError="this.src='http://placehold.it/50x50'">
+                    </ion-avatar>
+                    <h2>{{(bookp.user |async)?.username}}</h2>
+                    <p>{{bookp.startTime | date:'MMMM dd, yyyy'}}</p>
+                    <button class="btn-complete" *ngIf="bookp.UserWant=='STAY' && bookp.onTheWay==0" ion-button
+                            text-capitalize item-end (click)="onTheWayCall(bookp,$event)">
+                        On The Way
+                    </button>
+                    <button class="btn-complete" *ngIf="bookp.UserWant=='STAY' && bookp.onTheWay==1" ion-button
+                            text-capitalize item-end (click)="employeeReach(bookp,$event)">
+                        Reach
+                    </button>
+                    <button class="btn-complete" *ngIf="bookp.UserWant=='STAY' && bookp.onTheWay==2" ion-button
+                            text-capitalize item-end (click)="completeBooking(bookp,$event)">
+                        Complete
+                    </button>
+                    <button class="btn-complete" *ngIf="bookp.UserWant=='COME'" ion-button text-capitalize item-end
+                            (click)="completeBooking(bookp,$event)">
+                        Complete
+                    </button>
+                </ion-item>
+
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col col-2>
+                        </ion-col>
+
+                        <ion-col col-6>
+                            <span class="small-title">Delivery Time</span> <br>
+                            <p class="bold-line">{{bookp.startTime | date:'EEEE, dd MMMM'}}</p>
+                            <p class="regular-line">{{bookp.startTime | date:'hh:mm a'}} - {{bookp.endTime |
+                                date:'hh:mm a'}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <span class="small-title">Payment</span> <br>
+                            <p class="bold-line">$ {{bookp.total}}</p>
+                            <p class="regular-line" *ngIf="bookp.paymentStatus==1  && bookp.paymentMethod=='COD'">Cash On Delivery</p>
+                            <p class="regular-line" *ngIf="bookp.paymentStatus==1  && bookp.paymentMethod=='PAYPAL'">Paypal Payment</p>
+                            <p class="medium" *ngIf="bookp.paymentStatus==1  && bookp.paymentMethod=='RAZORPAY'"> Razorpay Payment</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-2>
+                        </ion-col>
+                        <ion-col>
+                            <span class="small-title">Delivery Address</span> <br>
+                            <p class="bold-line">{{(bookp.addressData |async)?.Address | sliceAddress:'30'}}
+                                ({{(bookp.addressData
+                                |async)?.Pincode}})</p>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+        </ng-container>
+    </ion-list>
+
+    <ion-list [hidden]="bookingType != 'complete'">
+        <ion-card text-center *ngIf="(completeBookingData$ | async)?.length==0">
+            <ion-card-content>No Data Found</ion-card-content>
+        </ion-card>
+        <ng-container *ngFor="let bookc of (completeBookingData$ |async)">
+            <ion-card (click)="viewBookingDetail(bookc.id,$event)">
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img [src]="(bookc.user |async)?.image" alt="{{(bookc.user |async)?.username}}" onError="this.src='http://placehold.it/50x50'">
+                    </ion-avatar>
+                    <h2>{{(bookc.user |async)?.username}}</h2>
+                    <p>{{bookc.startTime | date:'MMMM dd, yyyy'}}</p>
+                </ion-item>
+
+                <ion-card-content>
+                    <ion-row>
+                        <ion-col col-2>
+                        </ion-col>
+
+                        <ion-col col-6>
+                            <span class="small-title">Delivery Time</span> <br>
+                            <p class="bold-line">{{bookc.startTime | date:'EEEE, dd MMMM'}}</p>
+                            <!--Today, 21 June -->
+                            <p class="regular-line">{{bookc.startTime | date:'hh:mm a'}} - {{bookc.endTime |
+                                date:'hh:mm a'}}</p>
+                        </ion-col>
+                        <ion-col>
+                            <span class="small-title">Payment</span> <br>
+                            <p class="bold-line">$ {{bookc.total}}</p>
+                            <p class="regular-line" *ngIf="bookc.paymentStatus==1  && bookc.paymentMethod=='COD'">Cash On Delivery</p>
+                            <p class="regular-line" *ngIf="bookc.paymentStatus==1  && bookc.paymentMethod=='PAYPAL'">Paypal Payment</p>
+                            <p class="regular-line" *ngIf="bookc.paymentStatus==1  && bookc.paymentMethod=='RAZORPAY'"> Razorpay Payment</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-2>
+                        </ion-col>
+                        <ion-col>
+                            <span class="small-title">Delivery Address</span> <br>
+                            <p class="bold-line">{{(bookc.addressData |async)?.Address | sliceAddress:'30'}}
+                                ({{(bookc.addressData
+                                |async)?.Pincode}})</p>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
+            </ion-card>
+        </ng-container>
+    </ion-list>
+
+</ion-content>

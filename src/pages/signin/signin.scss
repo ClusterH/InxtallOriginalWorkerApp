@@ -1,0 +1,112 @@
+page-signin {
+  .m-top-20 {
+    margin-top: 20px
+  }
+
+  .txt2 {
+    color: white;
+    font-weight: 300
+  }
+  .logo {
+    height: 138px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .contain {
+    background: rgba(10, 10, 10, 0.73);
+    height: 100%;
+    width: 100%;
+    padding-left: 36px !important;
+    padding-right: 36px !important;
+  }
+
+  .txt {
+    color: white;
+    font-weight: 400;
+    font-size: 6vw;
+  }
+
+  .border-style {
+    border-bottom: 1px solid white;
+    padding-top: 11px
+  }
+
+  h2 {
+    margin-bottom: 0
+  }
+
+  .social_icon {
+    height: 40px;
+  }
+
+  .flp {
+    margin-top: 65px
+  }
+
+  .button-md {
+    overflow: hidden;
+    height: 4.6rem;
+    font-size: 1.7rem;
+    font-weight: 500;
+    text-transform: inherit;
+    color: #fff;
+    background-color:$buttonBackcolor !important;
+    font-weight: 400
+  }
+
+  .flp div {
+    position: relative;
+  }
+
+  .flp input,
+  .flp label {
+    width: 100%;
+    display: block;
+    font: inherit;
+    font-size: 16px;
+    line-height: 24px;
+    height: 46px;
+    border: 0px solid #999;
+    background: rgba(99, 97, 97, 0.26);
+    color: white;
+  }
+
+  .flp input {
+    padding: 10px;
+    outline: none;
+    border-radius: 3px;
+  }
+
+  .flp label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px 8px;
+    border-color: transparent;
+    color: #666;
+    cursor: text;
+  }
+
+  .ch {
+    display: block;
+    float: left;
+    position: relative;
+    background: transparent;
+    color: white;
+    font-weight: 300;
+  }
+
+  .ch:first-child {
+    padding-left: 2px;
+  }
+
+  .ch:last-child {
+    padding-right: 2px;
+  }
+
+  .focussed {
+    pointer-events: none;
+  }
+}
